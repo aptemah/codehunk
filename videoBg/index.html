@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Document</title>
+
+<!-- modernizr for check autoplay -->
+<script src='modernizr-custom.js'></script>
+
+<!-- styles -->
+<style>
+    .header {
+        overflow: hidden;
+        height: 100vh;
+    }
+    .videoBg {
+        display: block;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translateX(-50%) translateY(-50%);
+        min-width: 100%;
+        min-height: 100%;
+        width: auto;
+        height: auto;
+    }
+</style>
+</head>
+<body>
+
+<!-- script in body to prevent loading video if client has no autoplay -->
+<script>
+    Modernizr.on('videoautoplay', function(result) {
+        var videoElement = document.createElement('video');
+        videoElement.className = 'videoBg';
+        videoElement.autoplay = true;
+        videoElement.loop = true;
+        videoElement.muted = true;
+        videoElement.src = '<?php echo $videoFile['url']; ?>';
+
+        if (result) {
+            document.querySelector('.header').prepend(videoElement);
+        }
+    });
+</script>
+</body>
+</html>
