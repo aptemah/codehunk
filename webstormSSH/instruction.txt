@@ -1,0 +1,8 @@
+How to create SSH connection and to save it in webstorm
+
+1. go to Tools > Deployment > Configuration
+2. Add new SFTP connection
+3. Input connection data
+4. Uncheck "Visible only for this project"
+5. go to Tools > Start SSH session
+6. Choose saved connection
