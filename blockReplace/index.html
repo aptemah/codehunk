@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<script
+	  src="https://code.jquery.com/jquery-3.2.1.js"
+	  integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE="
+	  crossorigin="anonymous"></script>
+</head>
+<body>
+
+<div class="js-action__replace-accept" data-block-accept="#replace1" data-breakpoints="extra-large medium"></div>
+static text
+<div class="js-action__replace-original-wrap" id="replace1">
+	<div class="js-action__replace-element type--clear">
+		<div>test-block</div>
+	</div>
+</div>
+
+<script>
+var currentDeviceWidth = deviceWidth();
+function deviceWidth () {
+	var viewport = Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
+	var deviceWidth = 'extra-small';
+
+	if (viewport > 576) deviceWidth = 'small';
+	if (viewport > 768) deviceWidth = 'medium';
+	if (viewport > 992) deviceWidth = 'large';
+	if (viewport > 1200) deviceWidth = 'extra-large';
+	return deviceWidth;
+}
+
+$(window).on('resize', function(){
+	var currentBreakpoint = deviceWidth();
+	if (currentBreakpoint !== currentDeviceWidth) {
+		currentDeviceWidth = currentBreakpoint;
+		var replaceEvent = new CustomEvent('replaceEvent');
+		window.dispatchEvent(replaceEvent);
+	}
+});
+function replaceBlocks () {
+	var currentBreakpoint = deviceWidth();
+	$('.js-action__replace-accept').each(function(){
+		var blockSelector = $(this).attr('data-block-accept'),
+			breakPoints = $(this).attr('data-breakpoints'),
+			originalBlock = $(blockSelector),
+			newWrap = $(this),
+			elemToReplace;
+		if (originalBlock.find('.js-action__replace-element').length) {
+			elemToReplace = originalBlock.find('.js-action__replace-element');
+		} else {
+			elemToReplace = newWrap.find('.js-action__replace-element');
+		}
+
+		if (breakPoints == undefined) {
+			breakPoints = 'extra-large';
+		}
+
+		var breakPointSearchPattern = new RegExp('((^)|(\\s))(?!-)' + currentBreakpoint + '\\b');
+		if (breakPoints.search(breakPointSearchPattern) !== -1) {
+			elemToReplace.appendTo(newWrap);
+		} else {
+			elemToReplace.appendTo(originalBlock);
+		}
+	});
+}
+replaceBlocks();
+$(window).on('replaceEvent', function(e){replaceBlocks(e)});
+</script>
+</body>
+</html>
