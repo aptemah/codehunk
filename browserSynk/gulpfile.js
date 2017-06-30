@@ -14,12 +14,12 @@ gulp.task('browser-sync', function() {
 
 gulp.task('default', function() {
     browserSync.init({
-        proxy: "http://codeit.pro/casino/32334/review.html",
+        proxy: "https://github.com/",
         rewriteRules: [
             {
-                match: /css\/style\.cr\.min\.css/g,//TODO file to replace
+                match: /https\:\/\/assets\-cdn\.github\.com\/assets\/github\-b9b43f5697ca643594f3a899ff0ee0b6088f2fc4164c3c54ba8d43232503c6d9\.css/g,//TODO file to replace
                 fn: function (req, res, match) {
-                    return '/assets/style.cr.min.css';//TODO file that replaces
+                    return '/assets/main.css';//TODO file that replaces
                 }
             }
         ],
