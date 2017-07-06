@@ -24,10 +24,10 @@ function deviceWidth () {
 	var viewport = Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
 	var deviceWidth = 'extra-small';
 
-	if (viewport > 576) deviceWidth = 'small';
-	if (viewport > 768) deviceWidth = 'medium';
-	if (viewport > 992) deviceWidth = 'large';
-	if (viewport > 1200) deviceWidth = 'extra-large';
+	if (viewport >= 576) deviceWidth = 'small';
+	if (viewport >= 768) deviceWidth = 'medium';
+	if (viewport >= 992) deviceWidth = 'large';
+	if (viewport >= 1200) deviceWidth = 'extra-large';
 	return deviceWidth;
 }
 
