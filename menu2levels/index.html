@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<script
+  src="http://code.jquery.com/jquery-3.2.1.min.js"
+  integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+  crossorigin="anonymous"></script>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<style>
+	.js-action__menu-parent--active > span:first-child {
+		text-decoration: underline;
+	}
+</style>
+<body>
+	<div class="menu-mobile">
+		<ul>
+			<li><a href="#">PayPal</a></li>
+			<li><a href="#">Mega Moolah</a></li>
+			<li class="js-action__menu-parent">
+				<span class="js-action__menu-switch">Top Guides</span>
+				<ul class="js-action__menu-list">
+					<li>
+						<span>Home</span>
+					</li>
+					<li class=" js-action__menu-parent">
+						<span class=" js-action__menu-switch">Real Money</span>
+						<ul class="menu-mobile__list js-action__menu-list">
+							<li>
+								<a href="#">Real money sub link</a>
+							</li>
+							<li>
+								<a href="#">Real money sub link 2</a>
+							</li>
+						</ul>
+					</li>
+					<li class=" js-action__menu-parent">
+						<span class=" js-action__menu-switch">Fastest Payouts</span>
+						<ul class="menu-mobile__list js-action__menu-list">
+							<li>
+								<a href="#">Fastest Payouts sub link</a>
+							</li>
+							<li>
+								<a href="#">Fastest Payouts sub link 2</a>
+							</li>
+						</ul>
+					</li>
+					<li>
+						<span>Reviews</span>
+					</li>
+					<li>
+						<span>Blacklisted Casinos</span>
+					</li>
+					<li>
+						<span>Progressive Jackpots</span>
+					</li>
+					<li>
+						<span>Online Gambling</span>
+					</li>
+				</ul>
+			</li>
+			<li class="js-action__menu-parent">
+				<span class=" js-action__menu-switch">Latest News </span>
+				<ul class="menu-mobile__list js-action__menu-list">
+					<li>
+						<span>Home</span>
+					</li>
+					<li class=" js-action__menu-parent">
+						<span class=" js-action__menu-switch">Real Money</span>
+						<ul class="menu-mobile__list js-action__menu-list">
+							<li>
+								<a href="#">Real money sub link</a>
+							</li>
+							<li>
+								<a href="#">Real money sub link 2</a>
+							</li>
+						</ul>
+					</li>
+					<li class=" js-action__menu-parent">
+						<span class=" js-action__menu-switch">Fastest Payouts</span>
+						<ul class="menu-mobile__list js-action__menu-list">
+							<li>
+								<a href="#">Fastest Payouts sub link</a>
+							</li>
+							<li>
+								<a href="#">Fastest Payouts sub link 2</a>
+							</li>
+						</ul>
+					</li>
+					<li>
+						<span>Reviews</span>
+					</li>
+					<li>
+						<span>Blacklisted Casinos</span>
+					</li>
+					<li>
+						<span>Progressive Jackpots</span>
+					</li>
+					<li>
+						<span>Online Gambling</span>
+					</li>
+				</ul>
+			</li>
+		</ul>
+	</div>
+
+	<script>
+	$(document).on('click', '.js-action__menu-switch', function () {
+		clickOnMenu(this);
+	});
+	closeAll();
+
+	function clickOnMenu(element) {
+		var elementToAction = $(element).closest('.js-action__menu-parent').find('.js-action__menu-list').eq(0);
+
+		closeAll(elementToAction);
+		elementToAction.slideToggle();
+
+		setActiveClasses(elementToAction);
+		elementToAction.parents('.js-action__menu-parent').eq(0).toggleClass('js-action__menu-parent--active');
+	}
+
+	function closeAll(currentElement) {
+		$('.js-action__menu-list').each(function() {
+			if (currentElement == undefined) {
+				$(this).slideUp();
+			} else {
+				var parent = currentElement.parents('.js-action__menu-list');
+				if (currentElement[0] !== this && parent[0] !== this) {
+					$(this).slideUp();
+				}
+			}
+		})
+	}
+
+	function setActiveClasses(currentElement) {
+		$('.js-action__menu-list').each(function() {
+			var parent = currentElement.parents('.js-action__menu-list');
+			if (currentElement[0] !== this && parent[0] !== this) {
+				$(this).parents('.js-action__menu-parent').eq(0).removeClass('js-action__menu-parent--active');
+			}
+		})
+	}
+	</script>
+</body>
+</html>
